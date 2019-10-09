@@ -47,8 +47,4 @@ public class Row_C extends Row {
     public void setDate(String date) {
         this.date = LocalDate.parse(date, formatter);
     }
-
-    public boolean equals(String string_1, String string_2) {
-        return string_1 == string_2;
-    }
 }

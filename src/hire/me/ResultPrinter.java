@@ -1,9 +1,11 @@
 package hire.me;
 
+import java.util.OptionalDouble;
+
 public class ResultPrinter {
-    public static void resultPrinter(int timeSum, int countedRows) {
-        if(countedRows != 0) {
-            System.out.println("time sum = " + timeSum / countedRows);
+    public static void resultPrinter(OptionalDouble value) {
+        if(value.isPresent()) {
+            System.out.println( (int) value.getAsDouble());
         } else {
             System.out.println("-");
         }
