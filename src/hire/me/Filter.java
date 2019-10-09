@@ -9,39 +9,39 @@ public class Filter {
                 questionDate.isEqual(queryStartDate) | questionDate.isEqual(queryEndDate);
     }
 
-    public static boolean responseTypeFilter(int i, int k, ArrayList<Row_C> c_data_rows, ArrayList<Row_D> d_data_rows) {
-        return d_data_rows.get(i).getResponse_type().equals(c_data_rows.get(k).getResponse_type());
+    public static boolean responseTypeFilter(int k, ArrayList<Row_C> c_data_rows, Row row) {
+        return row.getResponse_type().equals(c_data_rows.get(k).getResponse_type());
     }
 
-    public static boolean serviceFilter(int i, int k, ArrayList<Row_C> c_data_rows, ArrayList<Row_D> d_data_rows) {
-        if(d_data_rows.get(i).getService_id() == 0) {
+    public static boolean serviceFilter(int k, ArrayList<Row_C> c_data_rows, Row row) {
+        if(row.getService_id() == 0) {
             return true;
         }
-        if (d_data_rows.get(i).getVariation_id() != 0) {
-            return d_data_rows.get(i).getService_id() == c_data_rows.get(k).getService_id() &&
-                    d_data_rows.get(i).getVariation_id() == c_data_rows.get(k).getVariation_id();
+        if (row.getVariation_id() != 0) {
+            return row.getService_id() == c_data_rows.get(k).getService_id() &&
+                    row.getVariation_id() == c_data_rows.get(k).getVariation_id();
         }
-        if (d_data_rows.get(i).getVariation_id() == 0) {
-            return d_data_rows.get(i).getService_id() == c_data_rows.get(k).getService_id();
+        if (row.getVariation_id() == 0) {
+            return row.getService_id() == c_data_rows.get(k).getService_id();
         }
         return false;
     }
 
-    public static boolean questionFilter(int i, int k, ArrayList<Row_C> c_data_rows, ArrayList<Row_D> d_data_rows) {
-        if(d_data_rows.get(i).getQuestion_type_id() == 0) {
+    public static boolean questionFilter(int k, ArrayList<Row_C> c_data_rows, Row row) {
+        if(row.getQuestion_type_id() == 0) {
             return true;
         }
-        if (d_data_rows.get(i).getCategory_id() != 0 & d_data_rows.get(i).getSub_category_id() != 0) {
-            return d_data_rows.get(i).getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id() &&
-                    d_data_rows.get(i).getCategory_id()  == c_data_rows.get(k).getCategory_id()  &&
-                    d_data_rows.get(i).getSub_category_id() == c_data_rows.get(k).getSub_category_id();
+        if (row.getCategory_id() != 0 & row.getSub_category_id() != 0) {
+            return row.getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id() &&
+                    row.getCategory_id()  == c_data_rows.get(k).getCategory_id()  &&
+                    row.getSub_category_id() == c_data_rows.get(k).getSub_category_id();
         }
-        if (d_data_rows.get(i).getCategory_id()  != 0 & d_data_rows.get(i).getSub_category_id() == 0) {
-            return d_data_rows.get(i).getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id() &&
-                    d_data_rows.get(i).getCategory_id()  == c_data_rows.get(k).getCategory_id() ;
+        if (row.getCategory_id()  != 0 & row.getSub_category_id() == 0) {
+            return row.getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id() &&
+                    row.getCategory_id()  == c_data_rows.get(k).getCategory_id() ;
         }
-        if (d_data_rows.get(i).getCategory_id()  == 0) {
-            return d_data_rows.get(i).getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id();
+        if (row.getCategory_id()  == 0) {
+            return row.getQuestion_type_id() == c_data_rows.get(k).getQuestion_type_id();
         }
         return false;
     }

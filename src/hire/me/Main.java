@@ -10,11 +10,8 @@ import static hire.me.ResultPrinter.resultPrinter;
 
 public class Main {
     public static void main(String[] args) {
-        int timeSum = 0;
-        int countedRows = 0;
-        LocalDate questionDate;
-        LocalDate queryStartDate;
-        LocalDate queryEndDate;
+        final int[] timeSum = {0};
+        final int[] countedRows = {0};
         AtomicInteger counter = new AtomicInteger();
 
         ArrayList<Row_C> c_data_rows = new ArrayList<>();
@@ -30,8 +27,6 @@ public class Main {
                 "D 3 10 P 01.12.2012"
         };
 
-
-        // First stream divide the data into two ArrayLists.
         Arrays.stream(data_rows)
                 .forEach(i -> {
                     if ('C' == Splitter.rowType(i)) {
@@ -40,13 +35,28 @@ public class Main {
                         c_data_rows.add(row);
                     } else if ('D' == Splitter.rowType(i)) {
                         Row_D row = new Row_D(i, counter);
-                        d_data_rows.add(row);
+                            for (int k = 0; k < counter.intValue(); k++) {
+                                if (Filter.questionFilter(k, c_data_rows, row)) {
+                                    if (Filter.serviceFilter(k, c_data_rows, row)) {
+                                        if (Filter.responseTypeFilter(k, c_data_rows, row)) {
+                                            if (Filter.dateFilter(c_data_rows.get(k).getDate(), row.getStart_date(), row.getEnd_date())) {
+                                                timeSum[0] += c_data_rows.get(k).getTime();
+                                                ++countedRows[0];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            resultPrinter(timeSum[0], countedRows[0]);
+
+                            timeSum[0] = 0;
+                            countedRows[0] = 0;
                     } else {
                         System.out.println("It is smth unpredictable " + counter);
                     }
                 });
 
-        for (int i = 0; i < d_data_rows.size(); i++) {
+        /*for (int i = 0; i < d_data_rows.size(); i++) {
             for (int k = 0; k < d_data_rows.get(i).getRowNumber(); k++) {
 
                 if (Filter.questionFilter(i, k, c_data_rows, d_data_rows)) {
@@ -68,6 +78,6 @@ public class Main {
 
             timeSum = 0;
             countedRows = 0;
-        }
+        }*/
     }
 }
